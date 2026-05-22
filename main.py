@@ -128,9 +128,10 @@ def get_student(student_id):
 
 
 # ── Init ──────────────────────────────────────────────────────────────────────
+# This runs regardless of how the app is started (gunicorn or direct)
+with app.app_context():
+    db.create_all()
+    print("Database ready.")
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-        print("Database ready.")
     app.run(debug=False, port=5000)
